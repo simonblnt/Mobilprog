@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,19 +36,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		var dirX = CrossPlatformInputManager.GetAxis("Horizontal") * moveSpeed;
+		
 		isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
 		
-        if(Input.GetKey(left))
+        if(dirX < 0)
 		{
 			theRB.velocity = new Vector2(-moveSpeed, theRB.velocity.y);
-		}else if(Input.GetKey(right))
+		}else if(dirX > 0)
 		{
 			theRB.velocity = new Vector2(moveSpeed, theRB.velocity.y);
 		}else {
 			theRB.velocity = new Vector2(0, theRB.velocity.y);
 		}
 
-		if(Input.GetKeyDown(jump) && isGrounded)
+		if(CrossPlatformInputManager.GetButtonDown("Jump") && isGrounded)
 		{
 			theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
 		}
