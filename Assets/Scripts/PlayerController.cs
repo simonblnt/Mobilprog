@@ -9,11 +9,6 @@ public class PlayerController : MonoBehaviour
 	public float moveSpeed;
 	public float jumpForce;
 
-	public KeyCode left;
-	public KeyCode right;
-	public KeyCode jump;
-	public KeyCode throwThings;
-
 	private Rigidbody2D theRB;
 
 	public Transform groundCheckPoint;
@@ -36,6 +31,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		
 		var dirX = CrossPlatformInputManager.GetAxis("Horizontal") * moveSpeed;
 		
 		isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
@@ -64,6 +60,5 @@ public class PlayerController : MonoBehaviour
 
 		anim.SetFloat("Speed", Mathf.Abs(theRB.velocity.x));
 		anim.SetBool("Grounded", isGrounded);
-
     }
 }
